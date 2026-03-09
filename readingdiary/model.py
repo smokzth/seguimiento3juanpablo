@@ -41,7 +41,46 @@ class Book:
                 page_notes.append(note)
         return page_notes
 
-    def page_with_most_notes(self) ->int:
+    def page_with_most_notes(self) -> int:
+        if not self.notes:
+            return -1
+
+        count = {}
+
+        for note in self.notes:
+            if note.page in count:
+                count[note.page] += 1
+            count[note.page] += 1
+
+            return max(count, key=count.get)
+
+    def __str__(self) -> str:
+        return (f"ISBN: {self.isbn}"
+                f"Title: {self.title}"
+                f"Author: {self.author}"
+                f"Pages: {self.pages}"
+                f"Rating: {self.rating}")
+
+class ReadingDiary:
+    def __init__(self):
+        self.books: dict[str, Book] = {}
+
+    def add_book(self, isbn: str, title: str, author: str, pages: int) -> bool:
+        if isbn not in self.books:
+            self.books[isbn] = Book(isbn, title, author, pages)
+            return True
+        else:
+            return False
+
+    def search_by_isbn(self, isbn: str) -> Book | None:
+        if isbn in self.books:
+            return self.books[isbn]
+        else:
+            return None
+
+    def add_note_to_book(self, isbn: str, text: str, pages: str, date: datetime) -> bool:
+
+
 
 
 

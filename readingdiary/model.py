@@ -78,9 +78,21 @@ class ReadingDiary:
         else:
             return None
 
-    def add_note_to_book(self, isbn: str, text: str, pages: str, date: datetime) -> bool:
+    def add_note_to_book(self, isbn: str, text: str, pages: int, date: datetime) -> bool:
+        book = self.search_by_isbn(isbn)
+        if book is None:
+            return False
+
+        return book.add_note(text, pages, date)
 
 
+    def rate_book(self, isbn: str, rating: int) -> bool:
+        book = self.search_by_isbn(isbn)
+        if book is None:
+            return False
+        return book.set_rating(rating)
 
 
+    def book_with_most_notes(self) -> Book | None:
+        pass
 
